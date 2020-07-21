@@ -1,0 +1,20 @@
+﻿@inject UserContext User
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Live.Web</title>
+    <link rel="stylesheet" href="~/css/site.css" />
+</head>
+<body>
+    <header>
+        <div style="height: 60px; line-height: 60px; width: 1000px;margin: auto">您的用户名是：@User.Name</div>
+    </header>
+    <main>
+        @RenderBody()
+    </main>
+    <footer></footer>
+    @RenderSection("Scripts", required: false)
+</body>
+</html>

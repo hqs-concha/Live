@@ -1,0 +1,106 @@
+﻿* {
+    padding: 0;
+    margin: 0;
+}
+
+body {
+    height: 100%;
+}
+
+header,
+footer {
+    height: 60px;
+}
+
+main {
+    /* background-color: wheat; */
+}
+
+.wrapper {
+    padding: 15px;
+}
+
+.live {
+    display: flex;
+    height: 394px;
+    margin: auto;
+    width: 1000px;
+}
+
+.live-video {
+    width: 700px;
+    margin: auto;
+}
+
+.live-chat {
+    width: 270px;
+    padding: 15px;
+    border: 1px solid tomato;
+}
+
+.live-chat-content {
+    overflow-y: auto;
+    overflow-x: hidden;
+    height: 90%;
+}
+
+.live-chat-content-box {
+    display: flex;
+    padding: 5px 0;
+}
+
+.chat-name {
+    font-size: 12px;
+    color: red;
+}
+
+.chat-msg {
+    width: 70%;
+    margin-left: 10px;
+    font-size: 12px;
+    word-wrap: break-word;
+    word-break: break-all;
+    overflow: hidden;
+}
+
+.live-chat-form {
+    height: 10%;
+    padding: 5px 0;
+}
+
+.live-chat-form > input {
+    width: 70%;
+    height: 25px;
+}
+
+.live-chat-form > button {
+    padding: 5px 14px;
+    cursor: pointer;
+}
+/*控制整个滚动条*/
+::-webkit-scrollbar {
+    background-color: lightgray;
+    width: 6px;
+    height: 6px;
+    background-clip: padding-box;
+}
+
+/*滚动条两端方向按钮*/
+::-webkit-scrollbar-button {
+    background-color: pink;
+}
+
+/*滚动条中间滑动部分*/
+::-webkit-scrollbar-thumb {
+    background-color: yellowgreen;
+    border-radius: 5px;
+}
+
+/*滚动条右下角区域*/
+::-webkit-scrollbar-corner {
+    background-color: red;
+}
+
+.green {
+    color: green;
+}

@@ -1,0 +1,117 @@
+﻿@model int
+@{
+    ViewData["Title"] = $"{Model} 的 直播间";
+}
+<link href="~/video-js-7.9.1/video-js.min.css" rel="stylesheet" />
+<div class="wrapper">
+    <p style="width: 1000px;margin: auto">当前在线人数: <span id="online"></span></p>
+    <div class="live">
+        <div class="live-video">
+            <video class="video-js vjs-default-skin vjs-fluid vjs-big-play-centered"
+                   id="myPlayer"
+                   controls
+                   playsinline
+                   webkit-playsinline
+                   autoplay></video>
+        </div>
+        <div class="live-chat">
+            <div class="live-chat-content">
+                @foreach (var item in (List<Comment>) ViewBag.Comments)
+                {
+                <div class="live-chat-content-box">
+                    <div class="chat-name">@item.Name：</div>
+                    <div class="chat-msg">@item.Description</div>
+                </div>
+                }
+            </div>
+            <div class="live-chat-form">
+                <input type="text" id="message" placeholder="吐个槽吧" />
+                <button type="button" onclick="send()">发送</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts
+{
+    <script src="~/js/signalr/dist/browser/signalr.min.js"></script>
+    <script src="~/video-js-7.9.1/video.min.js"></script>
+    <script type="text/javascript">
+        function play(src) {
+            var option = {};
+            videojs("myPlayer",
+                option,
+                function onPlayerReady() {
+                    var myPlayer = this;
+                    myPlayer.src({ src: src, type: "application/x-mpegURL" });
+                    this.play();
+                });
+        }
+
+        function initialVideo() {
+            var url = '@ViewBag.LiveUrl';
+            play(url);
+        }
+
+        window.onload = () => {
+            initialVideo();
+        };
+    </script>
+    <script>
+        //创建SignalR连接对象
+        const connection = new signalR.HubConnectionBuilder()
+            .withUrl("/home/chat-hub?group=@Model")
+            .build();
+
+        //接收消息
+        connection.on("ReceiveMessage",
+            function(user, message) {
+                //收到推送的具体实现，user，message就是服务器推送来的信息，可以更新显示到前端页面中。
+                var str = `
+                    <div class="live-chat-content-box">
+                        <div class="chat-name">${user}：</div>
+                        <div class="chat-msg">${message}</div>
+                    </div>
+                  `;
+                appendText(str);
+            });
+
+        //进入直播间
+        connection.on("EnterLive",
+            function(user, message) {
+                var str = `<div style='text-align:center;font-size:12px;'>欢迎<span style='color:red'> ${user} </span>${message}</div>`;
+                appendText(str);
+            });
+
+        //在线人数 
+        connection.on("OnlineTotal",
+            function(total) {
+                var online = document.querySelector("#online");
+                online.innerText = total;
+            });
+
+        //连接到服务器中心
+        connection.start().then(function() {
+            console.log("chatHub connected");
+        }).catch(function(err) {
+            console.log(err);
+        });
+
+        function send() {
+            var message = document.querySelector("#message");
+            if (!message.value) return;
+            connection.invoke("SendMessage", message.value, '@Model').catch(function(err) {
+                console.log(err);
+            });
+            message.value = "";
+        }
+
+        function appendText(str) {
+            var box = document.querySelector(".live-chat-content");
+            var html = box.innerHTML;
+
+            box.innerHTML = html + str;
+            box.scrollTop = box.scrollHeight;
+        }
+    </script>
+}
