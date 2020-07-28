@@ -1,6 +1,7 @@
 version: '3'
 services:
     live:
-    build: .
-    ports:
-        - "10000:5000"
+        build:
+            context: .
+        ports:
+            - "10000:5000"
