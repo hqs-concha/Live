@@ -7,3 +7,6 @@ services:
             context: .
         ports:
             - "10000:5000"
+        environment:
+            - DB_NAME=docker-compose
+            - DB_CONNECTION=127.0.0.1:3306
