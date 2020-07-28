@@ -2,6 +2,7 @@ version: '3'
 services:
     live:
         image: live
+        container_name: live
         build:
             context: .
         ports:
