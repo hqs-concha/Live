@@ -4,5 +4,6 @@ FROM mcr.microsoft.com/dotnet/core/aspnet:3.1
 COPY . /app
 WORKDIR /app
 EXPOSE 5000
+VOLUME /app/logs
 ENV DB_CONNECTION=1 ASPNETCORE_ENVIRONMENT=2
 ENTRYPOINT ["dotnet","Live.Web.dll"]

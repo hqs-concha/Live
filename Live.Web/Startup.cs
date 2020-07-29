@@ -1,4 +1,5 @@
 using System;
+using Live.Web.Helper;
 using Live.Web.Hubs;
 using Live.Web.Models;
 using Live.Web.Store;
@@ -21,6 +22,7 @@ namespace Live.Web
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            LogHelper.Write("!!!oh shit!!!");
             Console.WriteLine($"数据库连接：{Configuration["DB_CONNECTION"]}");
             Console.WriteLine($"数据库名称：{Configuration["DB_NAME"]}");
             services.AddControllersWithViews();

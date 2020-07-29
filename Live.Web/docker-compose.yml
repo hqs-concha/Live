@@ -1,7 +1,6 @@
 version: '3'
 services:
     live:
-        image: live
         container_name: live
         build:
             context: .
@@ -10,3 +9,17 @@ services:
         environment:
             - DB_NAME=docker-compose
             - DB_CONNECTION=127.0.0.1:3306
+        volumes:
+            - /E/Docker/Data/web/logs:/app/logs
+        restart: always
+    mysql:
+        image: mysql:5.7
+        container_name: mysql
+        ports:
+            - "3306:3306"
+        volumes:
+            - /E/Docker/Data/mysql:/var/lib/mysql
+        restart: always
+        environment:
+            - TZ=Asia/Shanghai
+            - MYSQL_ROOT_PASSWORD=123456

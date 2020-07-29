@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using Live.Web.Helper;
 using Live.Web.Store;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -23,6 +24,7 @@ namespace Live.Web.Controllers
 
         public IActionResult Index()
         {
+            LogHelper.Write("oh shit!!!");
             SetUser();
             return View();
         }
