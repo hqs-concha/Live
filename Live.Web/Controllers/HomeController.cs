@@ -40,6 +40,11 @@ namespace Live.Web.Controllers
             return View(id);
         }
 
+        public IActionResult ConsulMessage([FromServices] IConfiguration configuration)
+        {
+            return Ok($"我的地址是：{configuration["SERVICE_IP"]}:{configuration["SERVICE_IP"]}");
+        }
+
         private void SetUser()
         {
             if (HttpContext.Session.TryGetValue("user", out byte[] value))

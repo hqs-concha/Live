@@ -16,7 +16,6 @@ namespace Live.Web
                 {
                     webBuilder.UseStartup<Startup>();
                     webBuilder.UseKestrel();
-                    webBuilder.UseUrls("http://*:5000");
                 });
     }
 }

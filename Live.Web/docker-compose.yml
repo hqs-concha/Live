@@ -1,14 +1,30 @@
 version: '3'
 services:
-    live:
-        container_name: live
+    live_1:
+        container_name: live_1
         build:
             context: .
         ports:
-            - "10000:5000"
+            - "6000:80"
         environment:
             - DB_NAME=docker-compose
             - DB_CONNECTION=127.0.0.1:3306
+            - SERVICE_PORT=6000
+            - SERVICE_IP=x.y
+        volumes:
+            - /E/Docker/Data/web/logs:/app/logs
+        restart: always
+    live_2:
+        container_name: live_2
+        build:
+            context: .
+        ports:
+            - "6001:80"
+        environment:
+            - DB_NAME=docker-compose
+            - DB_CONNECTION=127.0.0.1:3306
+            - SERVICE_PORT=6001
+            - SERVICE_IP=x.y
         volumes:
             - /E/Docker/Data/web/logs:/app/logs
         restart: always
